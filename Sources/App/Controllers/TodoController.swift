@@ -1,7 +1,7 @@
 import Fluent
 import Vapor
 
-//Todo Route
+//Todo Routes
 struct TodoController: RouteCollection {
   func boot(routes: RoutesBuilder) throws {
     let todos = routes.grouped("todos")
@@ -9,6 +9,7 @@ struct TodoController: RouteCollection {
     todos.post(use: create)
     todos.delete(":todoID", use: delete(req:))
     todos.post(":todoID", use: update(req:))
+    todos.patch(":todoID", use: update(req:))
   }
   // read all todos
   func index(req: Request) throws -> EventLoopFuture<[Todo]> {
@@ -22,7 +23,9 @@ struct TodoController: RouteCollection {
   /// update the todo
   func update(req: Request) throws -> EventLoopFuture<Todo> {
     let update = try req.content.decode(Todo.self)
-    return Todo.find(req.parameters.get("todoID"), on: req.db).unwrap(or: Abort(.notFound)).flatMap { todo in
+    return Todo.find(req.parameters.get("todoID"), on: req.db)
+      .unwrap(or: Abort(.notFound))
+      .flatMap { todo in
       todo.isCompleted = update.isCompleted
       todo.title = update.title
       return todo.save(on: req.db).map({update})
