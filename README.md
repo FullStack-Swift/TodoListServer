@@ -1,7 +1,5 @@
 # TodoListServer Online Docs
 
-https://todolistappproj.herokuapp.com
-
 ## Running Local with docker
 ```
 #   Build images: docker-compose build
@@ -22,6 +20,7 @@ DELETE  Delete
 ```
 
 ## Routing
+https://todolistappproj.herokuapp.com
 ```
 +--------+----------------+
 | GET    | /todo-list     | websocket

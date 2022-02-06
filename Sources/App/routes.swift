@@ -9,4 +9,5 @@ func routes(_ app: Application) throws {
     return "Hello, TodoList!"
   }
   try app.register(collection: TodoController())
+  try app.register(collection: WebController())
 }

@@ -3,6 +3,7 @@ import FluentPostgresDriver
 import Leaf
 import Vapor
 import Foundation
+import HTMLKitVaporProvider
 
   // cache websocket
 var websocketClients: WebsocketClients!
@@ -43,6 +44,11 @@ public func configure(_ app: Application) throws {
   }
     // web view
   app.views.use(.leaf)
+    // htmlkit
+  try app.htmlkit.add(view: RootView())
+  try app.htmlkit.add(view: MainView())
+  try app.htmlkit.add(view: RegisterView())
+  try app.htmlkit.add(view: LoginView())
     // register routes
   try routes(app)
 }
