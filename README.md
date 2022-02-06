@@ -18,7 +18,7 @@ PUT     Replace
 PATCH   Update
 DELETE  Delete
 ```
-## Web App
+## Web App (SwiftUI for Web WIP)
 https://todolistappproj.herokuapp.com/webs/root
 
 ## Routing
