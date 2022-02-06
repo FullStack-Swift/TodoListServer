@@ -44,12 +44,12 @@ struct RootView: View {
           }
           .foregroundColor(.red)
           .underline()
-          ActionButton(destination: "webs/login") {
+          ActionButton(destination: "login") {
             Text {
               "Login"
             }
           }
-          ActionButton(destination: "webs/register") {
+          ActionButton(destination: "register") {
             Text {
               "Register"
             }

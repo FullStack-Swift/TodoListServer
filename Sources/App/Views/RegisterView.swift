@@ -48,7 +48,7 @@ struct RegisterView: View {
           SecureField(name: "password")
         }
         ListRow {
-          ActionButton(destination: "todos") {
+          ActionButton(destination: "main") {
             Text {
               "Register"
             }

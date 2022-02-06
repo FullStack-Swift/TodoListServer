@@ -2,7 +2,7 @@
 import XCTVapor
 
 final class AppTests: XCTestCase {
-  func testHelloWorld() throws {
+  func testHelloTodoList() throws {
     let app = Application(.testing)
     defer { app.shutdown() }
     try configure(app)

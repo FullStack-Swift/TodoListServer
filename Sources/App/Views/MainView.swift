@@ -1,6 +1,5 @@
 import HTMLKit
 import HTMLKitComponents
-import CryptoKit
 
   // MARK: Content
 struct MainContent: Codable {
@@ -69,10 +68,10 @@ struct MainView: View {
         ForEach(enumerated: context.todos) { value, index in
           HStack(alignment: .baseline) {
             IF(value.isCompleted) {
-              ImageView(source: "http://127.0.0.1:8080/check.png")
+              ImageView(source: "https://todolistappproj.herokuapp.com/check.png")
             }
             IF(!value.isCompleted) {
-              ImageView(source: "http://127.0.0.1:8080/uncheck.png")
+              ImageView(source: "https://todolistappproj.herokuapp.com/uncheck.png")
             }
             Text {
               value.title

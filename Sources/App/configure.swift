@@ -11,7 +11,7 @@ var websocketClients: WebsocketClients!
 public func configure(_ app: Application) throws {
     // uncomment to serve files from /Public folder
   app.middleware.use(FileMiddleware(publicDirectory: app.directory.publicDirectory))
-  
+  app.routes.caseInsensitive = true
     // configuarion database
   if let databaseURL = Environment.get("DATABASE_URL"), var postgresConfig = PostgresConfiguration(url: databaseURL) {
     postgresConfig.tlsConfiguration = .makeClientConfiguration()
