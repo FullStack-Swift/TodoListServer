@@ -12,30 +12,31 @@ struct TodoController: RouteCollection {
     todos.patch(":todoID", use: update(req:))
   }
   // read all todos
-  func index(req: Request) throws -> EventLoopFuture<[Todo]> {
-    return Todo.query(on: req.db).all()
+  func index(req: Request) async throws -> [Todo] {
+    try await Todo.query(on: req.db).all()
   }
   /// create or update the todo
-  func create(req: Request) throws -> EventLoopFuture<Todo> {
+  func create(req: Request) async throws -> Todo {
     let todo = try req.content.decode(Todo.self)
-    return todo.save(on: req.db).map { todo }
+    try await todo.save(on: req.db)
+    return todo
   }
   /// update the todo
-  func update(req: Request) throws -> EventLoopFuture<Todo> {
+  func update(req: Request) async throws -> Todo {
     let update = try req.content.decode(Todo.self)
-    return Todo.find(req.parameters.get("todoID"), on: req.db)
-      .unwrap(or: Abort(.notFound))
-      .flatMap { todo in
-      todo.isCompleted = update.isCompleted
-      todo.title = update.title
-      return todo.save(on: req.db).map({update})
+    guard let todo = try await Todo.find(req.parameters.get("todoID"), on: req.db) else {
+      throw Abort(.notFound)
     }
+    todo.isCompleted = update.isCompleted
+    todo.title = update.title
+    return todo
   }
   /// delete the todo
-  func delete(req: Request) throws -> EventLoopFuture<Todo> {
-    return Todo.find(req.parameters.get("todoID"), on: req.db)
-      .unwrap(or: Abort(.notFound))
-      .flatMap { todo in
-        todo.delete(on: req.db).map {todo} }
+  func delete(req: Request) async throws -> Todo {
+    guard let todo = try await Todo.find(req.parameters.get("todoID"), on: req.db) else {
+      throw Abort(.notFound)
+    }
+    try await todo.delete(on: req.db)
+    return todo
   }
 }
