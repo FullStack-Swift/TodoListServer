@@ -29,6 +29,7 @@ struct TodoController: RouteCollection {
     }
     todo.isCompleted = update.isCompleted
     todo.title = update.title
+    try await todo.save(on: req.db)
     return todo
   }
   /// delete the todo
